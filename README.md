@@ -7,3 +7,7 @@ Given either raw time series RNA-seq data or pre-computed DEGs at each time poin
 `python app.py`
 
 View the site at <http://localhost:5000>
+
+## Deploy
+`docker compose build # build the container`
+`docker compose up # verify that it works the way you expect at http://localhost:5000`

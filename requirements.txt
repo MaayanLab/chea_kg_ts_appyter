@@ -1,0 +1,22 @@
+python-dotenv
+flask
+gunicorn
+appyter
+numpy
+pandas
+ipython
+requests
+ipycytoscape
+dash
+dash_cytoscape
+plotly
+scikit-learn
+igraph
+leidenalg
+scanpy
+anndata
+bokeh
+selenium
+Pillow
+maayanlab-bioinformatics @ git+https://github.com/Maayanlab/maayanlab-bioinformatics
+pydeseq2

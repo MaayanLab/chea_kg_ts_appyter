@@ -1,0 +1,60 @@
+FROM python:3.10
+
+ENV DEBIAN_FRONTEND="noninteractive"
+ENV TZ="America/New_York"
+
+RUN set -x \
+  && echo "Preparing system..." \
+  && apt-get -y update \
+  && apt-get -y install \
+    curl \
+    fuse \
+    git \
+    nginx \
+  && curl https://get.docker.com | sh \
+  && rm -rf /var/lib/apt/lists/* \
+  && pip3 install --no-cache-dir --upgrade pip
+
+RUN set -x \
+  && echo "Preparing user..." \
+  && useradd -ms /bin/bash -d /app app \
+  && groupadd fuse \
+  && adduser app fuse \
+  && (groupadd docker || true) \
+  && adduser app docker \
+  && chown -R app:app /app \
+  && chmod og+rwx -R /var/lib/nginx /var/log/nginx
+
+RUN set -x \
+  && echo "Installing jupyter kernel..." \
+  && pip3 install --no-cache-dir ipython_genutils ipykernel \
+  && python3 -m ipykernel install
+
+ADD requirements.txt appyter.json chea_kg_ts_appyter.ipynb /app/
+RUN set -x \
+  && echo "Installing python dependencies from requirements.txt..." \
+  && pip3 install --no-cache-dir -r /app/requirements.txt \
+  && rm /app/requirements.txt
+
+ARG appyter_version=appyter[production]@git+https://github.com/Maayanlab/appyter
+RUN set -x \
+  && echo "Installing appyter..." \
+  && pip3 install --no-cache-dir --upgrade ${appyter_version}
+
+USER app
+WORKDIR /app
+EXPOSE 5000
+VOLUME /app/data
+
+ENV PATH="/app:$PATH"
+# ENV PYTHONPATH "/app:$PYTHONPATH"
+ENV APPYTER_PREFIX="/"
+ENV APPYTER_HOST="0.0.0.0"
+ENV APPYTER_PORT="5000"
+ENV APPYTER_DEBUG="true"
+ENV APPYTER_IPYNB="chea_kg_ts_appyter.ipynb"
+ENV APPYTER_NO_FUSE="true"
+
+COPY --chown=app:app . /app
+
+CMD ["appyter", "chea_kg_ts_appyter.ipynb", "--extras", "ipywidgets", "--extras", "toggle-code", "--port", "5000", "--host", "0.0.0.0"]
