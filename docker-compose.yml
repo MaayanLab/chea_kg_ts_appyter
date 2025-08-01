@@ -1,13 +1,14 @@
 services:
   chea-kg-timeseries:
     build: .
-    image: avdusen25/chea-kg-timeseries:0.1.0
-    command: appyter chea_kg_ts_appyter.ipynb --extras=ipywidgets --extras=toggle-code
+    # image: avdusen25/chea-kg-timeseries:0.1.0
+    image: maayanlab/chea-kg-timeseries:0.2.12
     restart: unless-stopped
     pull_policy: missing
     platform: linux/amd64
     environment:
     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
+    - APPYTER_PROXY=true
     ports:
     - 5050:5000
     x-kubernetes:
@@ -15,26 +16,4 @@ services:
         maayanlab.cloud/ingress: https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
 x-kubernetes:
   name: chea-kg-timeseries
-
-### OLD VERSION ###
-# services:
-#   # generally good practice to prefix service by your app name, change yourapp to your app's name
-#   chea-kg-timeseries:
-#     build: .
-#     # make sure it's built for the cpu architecture running on our cluster
-#     platform: linux/amd64
-#     image: avdusen25/chea-kg-timeseries:0.1.0
-#     environment:
-#     - APPYTER_IPYNB
-#     - APPYTER_PROXY=true
-#     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
-#     # - APPYTER_DEBUG=false
-#     ports:
-#     # 5000 (your system, i.e. http://localhost:5000) maps to the container's port 5000
-#     - 5050:5000 ##### CHANGED FIRST PORT TO 5050, so need to go to http://localhost:5050 instead
-#     x-kubernetes:
-#       annotations:
-#         # this is where it will be deployed when it is published
-#         maayanlab.cloud/ingress: https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
-# x-kubernetes:
-#   name: chea-kg-timeseries
+  namespace: avdusen25

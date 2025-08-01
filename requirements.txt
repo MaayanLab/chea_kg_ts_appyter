@@ -1,7 +1,6 @@
 python-dotenv
 flask
 gunicorn
-appyter
 numpy
 pandas
 ipython

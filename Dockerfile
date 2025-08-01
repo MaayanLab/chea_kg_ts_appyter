@@ -30,7 +30,15 @@ RUN set -x \
   && pip3 install --no-cache-dir ipython_genutils ipykernel \
   && python3 -m ipykernel install
 
-ADD requirements.txt appyter.json chea_kg_ts_appyter.ipynb /app/
+ADD deps.txt /app/deps.txt
+RUN set -x \
+  && echo "Installing system dependencies from deps.txt..." \
+  && apt-get -y update \
+  && apt-get -y install $(grep -v '^#' /app/deps.txt) \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm /app/deps.txt
+
+ADD requirements.txt /app/requirements.txt
 RUN set -x \
   && echo "Installing python dependencies from requirements.txt..." \
   && pip3 install --no-cache-dir -r /app/requirements.txt \
@@ -44,17 +52,18 @@ RUN set -x \
 USER app
 WORKDIR /app
 EXPOSE 5000
-VOLUME /app/data
+# VOLUME /app/data
 
 ENV PATH="/app:$PATH"
-# ENV PYTHONPATH "/app:$PYTHONPATH"
+ENV PYTHONPATH "/app:$PYTHONPATH"
 ENV APPYTER_PREFIX="/"
 ENV APPYTER_HOST="0.0.0.0"
 ENV APPYTER_PORT="5000"
-ENV APPYTER_DEBUG="true"
+ENV APPYTER_DEBUG="false"
 ENV APPYTER_IPYNB="chea_kg_ts_appyter.ipynb"
-ENV APPYTER_NO_FUSE="true"
+ENV APPYTER_FUSE="false"
+ENV APPYTER_EXTRAS="[\"ipywidgets\", \"toggle-code\"]"
 
 COPY --chown=app:app . /app
 
-CMD ["appyter", "chea_kg_ts_appyter.ipynb", "--extras", "ipywidgets", "--extras", "toggle-code", "--port", "5000", "--host", "0.0.0.0"]
+CMD ["appyter", "flask-app"]
