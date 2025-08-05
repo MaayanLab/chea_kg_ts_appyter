@@ -9,6 +9,7 @@ services:
     environment:
     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
     - APPYTER_PROXY=true
+    - APPYTER_FUSE=false
     ports:
     - 5050:5000
     x-kubernetes:

@@ -44,7 +44,7 @@ RUN set -x \
   && pip3 install --no-cache-dir -r /app/requirements.txt \
   && rm /app/requirements.txt
 
-ARG appyter_version=appyter[production]@git+https://github.com/Maayanlab/appyter@v0.21.2
+ARG appyter_version=appyter[production]@git+https://github.com/Maayanlab/appyter@v0.21.5
 RUN set -x \
   && echo "Installing appyter..." \
   && pip3 install --no-cache-dir --upgrade ${appyter_version}
@@ -61,7 +61,6 @@ ENV APPYTER_HOST="0.0.0.0"
 ENV APPYTER_PORT="5000"
 ENV APPYTER_DEBUG="false"
 ENV APPYTER_IPYNB="chea_kg_ts_appyter.ipynb"
-ENV APPYTER_FUSE="false"
 ENV APPYTER_EXTRAS="[\"ipywidgets\", \"toggle-code\"]"
 
 COPY --chown=app:app . /app
