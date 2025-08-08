@@ -6,7 +6,7 @@ Given either raw time series RNA-seq data or pre-computed DEGs at each time poin
 
 `pip install -r requiements.txt`
 
-`python chea_kg_ts_appyter.ipynb`
+`appyter chea_kg_ts_appyter.ipynb --extras=ipywidgets --extras=toggle-code`
 
 View the site at <http://localhost:5000>
 
