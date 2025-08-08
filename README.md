@@ -3,8 +3,10 @@ Given either raw time series RNA-seq data or pre-computed DEGs at each time poin
 
 ## Development
 `cp .env.example .env`
+
 `pip install -r requiements.txt`
-`python app.py`
+
+`python chea_kg_ts_appyter.ipynb`
 
 View the site at <http://localhost:5000>
 
