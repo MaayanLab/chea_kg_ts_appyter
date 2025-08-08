@@ -9,5 +9,7 @@ Given either raw time series RNA-seq data or pre-computed DEGs at each time poin
 View the site at <http://localhost:5000>
 
 ## Deploy
-`docker compose build # build the container`
-`docker compose up # verify that it works the way you expect at http://localhost:5000`
+`docker compose build chea-kg-timeseries # build the container`
+`docker compose up -d # verify that it works the way you expect at http://localhost:5050`
+`docker compose push` # push container
+`sshkube run kube-compose up` # run on server
