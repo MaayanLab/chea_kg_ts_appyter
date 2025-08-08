@@ -15,6 +15,6 @@ View the site at <http://localhost:5000>
 
 `docker compose up -d # verify that it works the way you expect at http://localhost:5050`
 
-`docker compose push` # push container
+`docker compose push # push container`
 
-`sshkube run kube-compose up` # run on server
+`sshkube run kube-compose up # run on server`
