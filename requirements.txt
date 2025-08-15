@@ -20,4 +20,5 @@ Pillow
 maayanlab-bioinformatics @ git+https://github.com/Maayanlab/maayanlab-bioinformatics
 pydeseq2
 fsspec==2022.1.0
+werkzeug==2.0.3
 appyter
