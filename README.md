@@ -4,7 +4,11 @@ Given either raw time series RNA-seq data or pre-computed DEGs at each time poin
 ## Development
 `cp .env.example .env`
 
-`pip install -r requiements.txt`
+`python3.9 -m venv venv`
+
+`source venv/bin/activate`
+
+`pip3 install -r requiements.txt`
 
 `appyter chea_kg_ts_appyter.ipynb --extras=ipywidgets --extras=toggle-code`
 
