@@ -19,3 +19,5 @@ selenium
 Pillow
 maayanlab-bioinformatics @ git+https://github.com/Maayanlab/maayanlab-bioinformatics
 pydeseq2
+fsspec==2022.1.0
+appyter
