@@ -1,4 +1,6 @@
 python-dotenv
+fsspec==2022.1.0
+s3fs==2022.1.0
 flask
 gunicorn
 numpy
@@ -15,10 +17,7 @@ leidenalg
 scanpy
 anndata
 bokeh
-selenium
-Pillow
 maayanlab-bioinformatics @ git+https://github.com/Maayanlab/maayanlab-bioinformatics
 pydeseq2
-fsspec==2022.1.0
+appyter[production]@git+https://github.com/Maayanlab/appyter.git@497f5abe3b7446225aad04f2ff3323330a0b29cc
 werkzeug==2.0.3
-appyter

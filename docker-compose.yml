@@ -10,6 +10,10 @@ services:
     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
     - APPYTER_PROXY=true
     - APPYTER_FUSE=false
+    - APPYTER_PROFILE=bootstrap
+    - APPYTER_EXTRAS=${APPYTER_EXTRAS}
+    - APPYTER_DATA_DIR=s3://${MINIO_ACCESS_KEY}:${MINIO_SECRET_KEY}@s3:9000/${MINIO_BUCKET}
+    - APPYTER_EXECUTOR=dispatch::http://appyter-orchestrator:5000?params.executor=docker::maayanlab/x2ktr:latest
     ports:
     - 5050:5000
     x-kubernetes:

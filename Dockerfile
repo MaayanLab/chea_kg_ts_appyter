@@ -54,14 +54,17 @@ WORKDIR /app
 EXPOSE 5000
 VOLUME /app/data
 
-ENV PATH="/app:$PATH"
-ENV PYTHONPATH "/app:$PYTHONPATH"
+
 ENV APPYTER_PREFIX="/"
 ENV APPYTER_HOST="0.0.0.0"
 ENV APPYTER_PORT="5000"
 ENV APPYTER_DEBUG="false"
 ENV APPYTER_IPYNB="chea_kg_ts_appyter.ipynb"
 ENV APPYTER_EXTRAS='["ipywidgets", "toggle-code"]'
+ENV APPYTER_PROFILE="bootstrap"
+
+ENV PATH="/app:$PATH"
+ENV PYTHONPATH "/app:$PYTHONPATH"
 
 COPY --chown=app:app . /app
 

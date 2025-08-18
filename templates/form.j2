@@ -1,0 +1,142 @@
+{% extends "bootstrap/form.j2" %}
+
+{% block head %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QSM2MDFW8W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QSM2MDFW8W');
+</script>
+{{ super() }}
+{% endblock %}
+
+{% block style %}
+{{ super() }}
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center" style="width:100%; font-family: 'Open Sans';">
+    <div class="container col-8">
+        <div class="mb-5 mt-2 mx-0 row align-items-center">
+            <div class="col-3">
+                <img src="{{ url_for('static', filename='chea_kg_ts.png') }}" style="width:175px"
+                    class="img-fluid float-right">
+            </div>
+            <div class="col-7 text-center">
+                <h1 style="font-weight: bolder; color: rgb(0, 0, 79);"> ChEA-KG-TS </h1>
+                <p class="my-0">Upload raw RNA-seq data or differential expressed genes from time-series data to visualize the enriched transcription factor landscape 
+                and form hypothesese about the regulatory mechanisms governing biological processes.</p>
+            </div>
+            <div class="col-1 ml-5 text-center">
+                Executed Reports: <p style="font-weight: 1200; font-size: 1.5rem" id="numruns"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center justify-content-center mx-auto">
+    <div class="row">
+        <div class="col-12">
+            <div class="container col-10" style="font-size: 14px !important;">
+                <form method="POST" enctype="multipart/form-data" action="">
+                    <div hidden>
+                        {{ _fields[0].render() }}
+                    </div>
+                    <div>
+                        {{ _fields[1].render() }}
+                    </div>
+                    <div class="row justify-content-evenly">
+                            {{ _fields[2].render() }}
+                    </div>
+                    <div class="row justify-content-evenly">
+                        <div class="col">
+                            {{ _fields[3].render() }}
+                        </div>
+                        <div class="col">
+                            {{ _fields[4].render() }}
+                        </div>
+                    </div>
+                    <div class="row justify-content-evenly">
+                        <div class="col">
+                            {{ _fields[5].render() }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input onclick="checkFiles(event)" type="submit" value="Submit" />
+                            <div id="submit-feedback" class="p-2 px-5 rounded mx-auto"
+                                style="position: absolute; background-color: rgba(255, 0, 0, 0.552);">
+                                Please provide at least one data file
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+{{ super() }}
+
+<script>
+
+
+    var trueTypeOf = (obj) => Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
+
+
+    function checkFile(field) {
+        const meta = document.forms[0].elements[field]
+        var metavalue;
+        if (trueTypeOf(meta) == 'radionodelist') {
+            metavalue = meta[1].value
+        } else {
+            metavalue = meta.value
+            const reg = new RegExp('^(drs|s3|gs|ftp|http|https)://.+$')
+            if (!reg.test(metavalue)) {
+                metavalue = undefined;
+            }
+        }
+        return metavalue ? true : false
+    }
+
+    function resetParams() {
+        const params = [15, 0.01, 1, '', 'yes', 'yes', 'yes', 'yes', 0.8, 0.5, 500, 500, 'Protein-Protein Co-expression', []]
+        const fields = ['n_neighbors', 'min_dist', 'resolution', 'cluster_column', 
+        'membrane_screener', 'normalize_to_bg', 'impute_protein_expr', 
+        'impute_phospho_expr', 'percent_rows_protein', 'percent_rows_phospho', 'chea3_n', 'kea3_n', 
+        'intermediate_method', 'tumor_validate']
+        for (let i = 0; i < fields.length; i++) {
+            document.forms[0].elements[fields[i]].value = params[i]
+        }
+
+    }
+
+    function checkFiles(e) {
+        const files = [checkFile('rna_expr'), checkFile('prot_expr'), checkFile('phospho_expr'), checkFile('meta')]
+        if (files[0] || files[1] || files[2]) {
+            return;
+        } else {
+            e.preventDefault();
+            document.getElementById('submit-feedback').style.visibility = 'visible';
+            document.getElementById('submit-feedback').style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById('submit-feedback').style.opacity = 0;
+            }, 3000)
+        }
+    }
+
+    function getNumRuns() {
+        fetch('/blueprint/numruns').then(response => response.json()).then(data => {
+            document.getElementById('numruns').innerText = data.num_runs;
+        })
+    }
+    getNumRuns()
+</script>
+{% endblock %}
