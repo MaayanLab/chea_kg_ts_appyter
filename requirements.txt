@@ -6,6 +6,7 @@ gunicorn
 numpy
 pandas
 ipython
+ipywidgets
 requests
 ipycytoscape
 dash
@@ -23,3 +24,4 @@ appyter[production]@git+https://github.com/Maayanlab/appyter.git@497f5abe3b74462
 selenium 
 chromedriver-binary
 playwright
+observable_jupyter
