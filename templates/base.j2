@@ -122,7 +122,6 @@
     border: none;
   }
 
-
   .btn-link:hover {
     background-color: #2baebd;
   }
@@ -172,26 +171,6 @@
     /* Vertically center the text there */
   }
 
-  .custom-file-label-test[for=rna_expr] {
-    background-color: #2282a3 !important;
-    color: white;
-  }
-
-  .custom-file-label-test[for=prot_expr] {
-    background-color: #2282a3 !important;
-    color: white;
-  }
-
-  .custom-file-label-test[for=phospho_expr] {
-    background-color: #2282a3 !important;
-    color: white;
-  }
-
-  .custom-file-label-test[for=meta] {
-    background-color: #4c8c94 !important;
-    color: white;
-  }
-
   #submit-feedback {
     visibility: hidden;
     opacity: 0;
@@ -235,6 +214,7 @@
 
   body {
     padding: 0 !important;
+    background: linear-gradient(rgb(224, 245, 255), rgb(186, 214, 227)) !important;
   }
 
   .inner_cell+#abstract {
@@ -245,8 +225,26 @@
 
   }
 
-  .BR-span {
-    display: none;
+  .question {
+    font-weight: light; 
+    border: solid 2px gray; 
+    padding: 20px; 
+    border-radius: 10px; 
+    font-size: larger;
+    transition: all 500ms;
+    cursor: pointer;
+  }
+
+  :hover.question {
+    font-weight: bolder !important; 
+    border: solid 2px black; 
+    background-color: rgb(160, 198, 217);
+  }
+
+  .selected {
+    font-weight: bolder !important; 
+    border: solid 2px black !important; 
+    background-color: rgb(173, 236, 173);
   }
 
   div.cell {
@@ -262,52 +260,10 @@
     padding-top: 0px !important;
   }
 
-  .HNSCC-span {
-    display: none;
-  }
-
-  .CCRCC-span {
-    display: none;
-  }
-
-  .CO-span {
-    display: none;
-  }
-
-  .LSCC-span {
-    display: none;
-  }
-
-  .LUAD-span {
-    display: none;
-  }
-
-  .OV-span {
-    display: none;
-  }
-
-  .PDAC-span {
-    display: none;
-  }
-
-  .UCEC-span {
-    display: none;
-  }
-
-  .cancer-example {
-    cursor: pointer;
-  }
-
-  .cancer-example:hover {
-    background-color: rgba(177, 229, 255, 0.784);
-    border-radius: 20px;
-    transition: all 1s;
-  }
-
   .button-custom {
     background-color: #2283a300;
-    color: #2282a3;
-    border: 1px solid #2282a3;
+    color: #2c2c2c;
+    border: 1px solid #545454;
     border-radius: 5px;
     padding: 2px 5px;
     text-align: center;
@@ -334,11 +290,12 @@
   }
 </style>
 
+
 {% endblock %}
 
 {% block body %}
 <div class="row justify-content-center mb-3"
-  style="position: relative; width: 105%; left: -3%; font-family: 'Open Sans'; background-color: rgb(215, 215, 215); border-bottom: 2px solid #006bdd; overflow-x: visible;">
+  style="position: relative; width: 105%; left: -3%; font-family: 'Open Sans'; background-color: rgb(187, 216, 250); border-bottom: 2px solid #006bdd; overflow-x: visible;">
   <div class="container col-12">
     <div class="mb-1 mt-2 mx-0 row align-items-center text-left flex-row" style="position: relative; margin-right: 20%">
       <div class="col-2">
@@ -465,7 +422,7 @@
 {% block footer %}
 <footer class="footer mt-5">
   <div class="d-flex"
-    style="position:absolute;width: 104%; left: -3%; background-color:#2283a3; padding: 0px; overflow-x: hidden;">
+    style="position:absolute;width: 104%; left: -3%; background-color:#184f6b; padding: 0px; overflow-x: hidden;">
     <div class="row justify-content-around align-items-center text-center my-3 mx-auto">
       <div class="col  ml-5 mx-5" style="font-size: medium;">
         <a class="btn-link mr-2 text-nowrap" href="mailto:avi.maayan@mssm.edu" target="_blank" style="color: white !important;
