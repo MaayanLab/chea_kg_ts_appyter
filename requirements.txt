@@ -1,27 +1,22 @@
-python-dotenv
+maayanlab-bioinformatics @ git+https://github.com/Maayanlab/maayanlab-bioinformatics
+appyter[production]@git+https://github.com/Maayanlab/appyter.git@497f5abe3b7446225aad04f2ff3323330a0b29cc
+anndata
+bokeh
 s3fs
 fsspec
+selenium
 flask
 gunicorn
 numpy
 pandas
 ipython
-ipywidgets
 requests
-ipycytoscape
-dash
-dash_cytoscape
 plotly
 scikit-learn
 igraph
 leidenalg
 scanpy
-anndata
-bokeh
-maayanlab-bioinformatics @ git+https://github.com/Maayanlab/maayanlab-bioinformatics
 pydeseq2
-appyter[production]@git+https://github.com/Maayanlab/appyter.git@497f5abe3b7446225aad04f2ff3323330a0b29cc
-selenium 
 chromedriver-binary
 playwright
 observable_jupyter
