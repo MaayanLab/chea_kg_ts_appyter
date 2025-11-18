@@ -1,15 +1,6 @@
 {% extends "bootstrap/form.j2" %}
 
 {% block head %}
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QSM2MDFW8W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QSM2MDFW8W');
-</script>
 {{ super() }}
 {% endblock %}
 
@@ -40,17 +31,58 @@
 <div class="text-center justify-content-center mx-auto">
     <div class="row">
         <div class="col-12">
-            <div class="container col-10" style="font-size: 14px !important;">
-                <form method="POST" enctype="multipart/form-data" action="">
-                    <div hidden>
-                        {{ _fields[0].render() }}
+            <div id="selector" class="row mx-auto justify-content-center gap-5 mb-0">
+                    <div id="RNA-seq-button" class="col-3 justify-content-center question">
+                        Start with a gene expression matrix from RNA-seq data and time point sample metadata
                     </div>
+                    <div id="GMT-button" class="col-3 justify-content-center question">
+                        Start with a GMT file with precomputed DEGs for each time point
+                    </div>
+                </div>
+
+            <div class="container col-10" style="font-size: 14px !important;"></div>
+            <form method="POST" enctype="multipart/form-data" action="" onsubmit="return onSubmit(event)">
+                <div hidden>
+                    {{ _fields[1].render() }}
+                </div>
+                
+                <div id="RNA-seq" style="display: none;">
                     <div class="row mx-auto justify-content-center gap-5 mb-3">
                         <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; background-color: rgb(204, 230, 237);" 
-                            onclick="loadTRAILExample()">Load example RNA-seq data (TRAIL Treatment of TNBC)</div>
+                                onclick="loadTRAILExampleRNA()">Load example RNA-seq data (TRAIL Treatment of TNBC)</div>
                     </div>
-                    <div>
-                        {{ _fields[1].render() }}
+                    <div class="row justify-content-evenly">
+                        <div class="col">
+                            {{ _fields[2].render() }}
+                        </div>
+                        <div class="row justify-content-evenly">
+                            {{ _fields[3].render() }}
+                        </div>
+                    </div>
+                    
+                    <div class="row justify-content-evenly">
+                        <div class="col-6">
+                            {{ _fields[4].render() }}
+                        </div>
+                        <div class="col-6">
+                            {{ _fields[5].render() }}
+                        </div>
+                    </div>
+
+                    <div id="shared-area" class="row justify-content-evenly" style="display: none;">
+                        <div class="col-4">
+                            {{ _fields[8].render() }}
+                        </div>
+                        <div class="col-4">
+                            {{ _fields[9].render() }}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="GMT" style="display: none;">
+                    <div class="row mx-auto justify-content-center gap-5 mb-3">
+                        <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; background-color: rgb(204, 230, 237);" 
+                                onclick="loadTRAILExampleGMT()">Load example RNA-seq data (TRAIL Treatment of TNBC)</div>
                     </div>
                     <div class="row justify-content-evenly">
                         <div class="col">
@@ -58,53 +90,33 @@
                         </div>
                     </div>
                     <div class="row justify-content-evenly">
-                    <style>
-                        .tab-pane:first-of-type {
-                            --bs-gutter-x: 1.5rem;
-                            --bs-gutter-y: 0;
-                            display: flex;
-                            flex-wrap: wrap;
-                            margin-top: calc(-1 * var(--bs-gutter-y));
-                            margin-right: calc(-.5 * var(--bs-gutter-x));
-                            margin-left: calc(-.5 * var(--bs-gutter-x));
-                            justify-content: center;
-                        }
-                        .tab-pane:first-of-type > div:has(> #count_matrix, > #gmt_adjacent) {
-                            flex: 0 0 auto;
-                            width: 50% !important;
-                        }
-                        .tab-pane:first-of-type > div:has(> #metadata, > #gmt_t0) {
-                            flex: 0 0 auto;
-                            width: 50% !important;
-                        }
-                        .tab-pane:first-of-type > div {
-                            flex: 0 0 auto;
-                            width: 75%;
-                        }
-                        </style>
                             {{ _fields[3].render() }}
                     </div>
                     <div class="row justify-content-evenly">
-                        <div class="col">
-                            {{ _fields[4].render() }}
+                        <div class="col-6">
+                            {{ _fields[6].render() }}
                         </div>
-                        <div class="col">
-                            {{ _fields[5].render() }}
+                        <div class="col-6">
+                            {{ _fields[7].render() }}
                         </div>
+                    </div>
+                    <div class="col-4">
+                        {{ _fields[9].render() }}
                     </div>
                     
+                </div>
+                
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input onclick="checkFiles(event)" type="submit" value="Submit" />
-                            <div id="submit-feedback" class="p-2 px-5 rounded mx-auto"
-                                style="position: absolute; background-color: rgba(255, 0, 0, 0.552);">
-                                Please provide at least one data file
-                            </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input onclick="checkFiles(event)" type="submit" value="Submit" />
+                        <div id="submit-feedback" class="p-2 px-5 rounded mx-auto"
+                            style="position: absolute; background-color: rgba(255, 0, 0, 0.552);">
+                            Please provide at least one data file
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -119,56 +131,95 @@
 
     var trueTypeOf = (obj) => Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
 
-    function loadTRAILExample() {
+    document.getElementById('RNA-seq-button').addEventListener('click', () => {
+        $('#ga').fadeOut(50)
+        $('#GMT').fadeOut(50)
+        $('#RNA-seq').fadeIn(50)
+        $('#shared-area').fadeIn()
+        $('#submit-area').fadeIn(1000)
+        document.forms[0].elements['data_type'].value = 'scRNA-seq';
+        $('#scRNA-seq-button').addClass('selected')
+        $('#bulk-RNAseq-button').removeClass('selected')
+
+    })
+
+    document.getElementById('GMT-button').addEventListener('click', () => {
+        $('#ga').fadeOut(50)
+        $('#RNA-seq').fadeOut(50)
+        $('#GMT').fadeIn(50)
+        $('#shared-area').fadeIn()
+        $('#submit-area').fadeIn(1000)
+        document.forms[0].elements['data_type'].value = 'bulk RNA-seq';
+        $('#scRNA-seq-button').removeClass('selected')
+        $('#bulk-RNAseq-button').addClass('selected')
+    })
+
+    function loadTRAILExampleRNA() {
+        document.forms[0].elements['study_title'].value = 'Temporal effect of TRAIL treament on gene expression in triple negative breast cancer'
         const textbtn = document.getElementsByClassName('text-btn ' + 'GSE271120');
         for (let i = 0; i < textbtn.length; i++) {
             textbtn[i].click();
         }
-        document.forms[0].elements['study_title'].value = 'Temporal effect of TRAIL treament on gene expression in triple negative breast cancer'
         document.forms[0].elements['dge_method'].value = 'DESeq2'
         document.forms[0].elements['chosen_num'].value = 5
         
     }
 
-    function checkFile(field) {
-        const meta = document.forms[0].elements[field]
-        var metavalue;
-        if (trueTypeOf(meta) == 'radionodelist') {
-            metavalue = meta[1].value
-        } else {
-            metavalue = meta.value
-            const reg = new RegExp('^(drs|s3|gs|ftp|http|https)://.+$')
-            if (!reg.test(metavalue)) {
-                metavalue = undefined;
-            }
+    function loadTRAILExampleGMT() {
+        const textbtn = document.getElementsByClassName('text-btn ' + 'deseq2');
+        for (let i = 0; i < textbtn.length; i++) {
+            textbtn[i].click();
         }
-        return metavalue ? true : false
+        document.forms[0].elements['study_title'].value = 'Temporal effect of TRAIL treament on gene expression in triple negative breast cancer'
+        document.forms[0].elements['chosen_num'].value = 5
+        
     }
 
-    function resetParams() {
-        const params = [15, 0.01, 1, '', 'yes', 'yes', 'yes', 'yes', 0.8, 0.5, 500, 500, 'Protein-Protein Co-expression', []]
-        const fields = ['n_neighbors', 'min_dist', 'resolution', 'cluster_column', 
-        'membrane_screener', 'normalize_to_bg', 'impute_protein_expr', 
-        'impute_phospho_expr', 'percent_rows_protein', 'percent_rows_phospho', 'chea3_n', 'kea3_n', 
-        'intermediate_method', 'tumor_validate']
-        for (let i = 0; i < fields.length; i++) {
-            document.forms[0].elements[fields[i]].value = params[i]
-        }
+    async function validate(formData) {
+    console.warn(Object.fromEntries(formData.entries()))
 
+    if (formData.get('input_data_type') == 'raw RNA-seq data') {
+   
+        if (!formData.get('count_matrix')) throw new Error('Please provide RNA-seq gene count matrix')
+        if (!formData.get('metadata')) throw new Error('Please provide sample metadata')
+    }
+    if (formData.get('input_data_type') == 'GMT') {
+
+        if (!formData.get('gmt_adjacent')) throw new Error('Please provide GMT comparing adjacent timepoints')
+        if (!formData.get('gmt_t0')) throw new Error('Please provide sample GMT comparing to time zero')
+    }
     }
 
-    function checkFiles(e) {
-        const files = [checkFile('rna_expr'), checkFile('prot_expr'), checkFile('phospho_expr'), checkFile('meta')]
-        if (files[0] || files[1] || files[2]) {
-            return;
+    async function doSubmit(formData) {
+        await validate(formData)
+        const res = await fetch(window.location.href, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: formData,
+        })
+        if (res.status === 406) {
+            let { error } = await res.json()
+            throw new Error(error.message)
         } else {
-            e.preventDefault();
-            document.getElementById('submit-feedback').style.visibility = 'visible';
-            document.getElementById('submit-feedback').style.opacity = 1;
-            setTimeout(() => {
-                document.getElementById('submit-feedback').style.opacity = 0;
-            }, 3000)
+            const { _id } = await res.json()
+            window.location.href = `${_id}/`
         }
+    }
+
+    function onSubmit(e) {
+      e.preventDefault()
+      const formData = new FormData(e.target)
+      doSubmit(formData).catch(function (e) {
+        console.error(e)
+        document.getElementById('submit-feedback').innerText = e.toString()
+        document.getElementById('submit-feedback').style.visibility = 'visible';
+        document.getElementById('submit-feedback').style.opacity = 1;
+        //setTimeout(() => {
+        //    document.getElementById('submit-feedback').style.opacity = 0;
+        //}, 5000)
+      })
     }
 
     function getNumRuns() {
