@@ -22,3 +22,6 @@ View the site at <http://localhost:5000>
 `docker compose push # push container`
 
 `sshkube run kube-compose up # run on server`
+
+## Network Visualization
+The notebook used to build the D3 network visualization is available here: https://observablehq.com/@anna26/chea-kg-cytoscape-network
