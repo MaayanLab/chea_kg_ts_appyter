@@ -51,14 +51,7 @@
                         <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; background-color: rgb(204, 230, 237);" 
                                 onclick="loadTRAILExampleRNA()">Load example RNA-seq data (TRAIL Treatment of TNBC)</div>
                     </div>
-                    <div class="row justify-content-evenly">
-                        <div class="col">
-                            {{ _fields[2].render() }}
-                        </div>
-                        <div class="row justify-content-evenly">
-                            {{ _fields[3].render() }}
-                        </div>
-                    </div>
+                    
                     
                     <div class="row justify-content-evenly">
                         <div class="col-6">
@@ -66,15 +59,6 @@
                         </div>
                         <div class="col-6">
                             {{ _fields[5].render() }}
-                        </div>
-                    </div>
-
-                    <div id="shared-area" class="row justify-content-evenly" style="display: none;">
-                        <div class="col-4">
-                            {{ _fields[8].render() }}
-                        </div>
-                        <div class="col-4">
-                            {{ _fields[9].render() }}
                         </div>
                     </div>
                 </div>
@@ -85,14 +69,7 @@
                                 onclick="loadTRAILExampleGMT()">Load example RNA-seq data (TRAIL Treatment of TNBC)
                             </div>
                     </div>
-                    <div class="row justify-content-evenly">
-                        <div class="col">
-                            {{ _fields[2].render() }}
-                        </div>
-                    </div>
-                    <div class="row justify-content-evenly">
-                            {{ _fields[3].render() }}
-                    </div>
+                    
                     <div class="row justify-content-evenly">
                         <div class="col-6">
                             {{ _fields[6].render() }}
@@ -101,10 +78,22 @@
                             {{ _fields[7].render() }}
                         </div>
                     </div>
-                    <div class="col-4">
-                        {{ _fields[9].render() }}
-                    </div>
                     
+                </div>
+
+                <div id="shared-area" class="row justify-content-evenly" style="display: none;">
+                    <div class="col-4">
+                            {{ _fields[2].render() }}
+                        </div>
+                    <div class="col-9">
+                            {{ _fields[3].render() }}
+                    </div>
+                    <div class="col-4">
+                            {{ _fields[8].render() }}
+                        </div>
+                    <div class="col-9">
+                            {{ _fields[9].render() }}
+                    </div>
                 </div>
                 
 
@@ -152,13 +141,11 @@
     })
 
     function loadTRAILExampleRNA() {
-        document.forms[0].elements['study_title'].value = 'Temporal effect of TRAIL treament on gene expression in triple negative breast cancer'
         const textbtn = document.getElementsByClassName('text-btn ' + 'GSE271120');
         for (let i = 0; i < textbtn.length; i++) {
             textbtn[i].click();
         }
         document.forms[0].elements['dge_method'].value = 'DESeq2'
-        document.forms[0].elements['chosen_num'].value = '5'
         
     }
 
@@ -167,58 +154,64 @@
         for (let i = 0; i < textbtn.length; i++) {
             textbtn[i].click();
         }
-        document.forms[0].elements['study_title'].value = 'Temporal effect of TRAIL treament on gene expression in triple negative breast cancer'
-        document.forms[0].elements['chosen_num'].value = '5'
+
         
     }
 
     async function validate(formData) {
-    console.warn(Object.fromEntries(formData.entries()))
+    
+        const countMatrix = formData.get('count_matrix');
+        console.log('count_matrix:', countMatrix);
+        console.log('count_matrix type:', typeof countMatrix);
+        console.log('Is File?', countMatrix instanceof File);
 
-    if (formData.get('input_data_type') == 'raw RNA-seq data') {
-   
-        if (!formData.get('count_matrix')) throw new Error('Please provide RNA-seq gene count matrix')
-        if (!formData.get('metadata')) throw new Error('Please provide sample metadata')
-    }
-    if (formData.get('input_data_type') == 'GMT') {
+    
+        console.warn(Object.fromEntries(formData.entries()))
 
-        if (!formData.get('gmt_adjacent')) throw new Error('Please provide GMT comparing adjacent timepoints')
-        if (!formData.get('gmt_t0')) throw new Error('Please provide sample GMT comparing to time zero')
-    }
-    }
-
-
-    async function doSubmit(formData) {
-        await validate(formData)
-        const json = Object.fromEntries(formData.entries())
-        const res = await fetch(window.location.href, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify(json),
-        })
-        if (res.status === 406) {
-            let { error } = await res.json()
-            throw new Error(error.message)
-        } else {
-            const { _id } = await res.json()
-            window.location.href = `${_id}/`
+        if (formData.get('input_data_type') == 'raw RNA-seq data') {
+    
+            if (!formData.get('count_matrix')) throw new Error('Please provide RNA-seq gene count matrix')
+            if (!formData.get('metadata')) throw new Error('Please provide sample metadata')
         }
-    }
+        if (formData.get('input_data_type') == 'GMT') {
 
-    function onSubmit(e) {
-      e.preventDefault()
-      const formData = new FormData(e.target)
-      doSubmit(formData).catch(function (e) {
-        console.error(e)
-        document.getElementById('submit-feedback').innerText = e.toString()
-        document.getElementById('submit-feedback').style.visibility = 'visible';
-        document.getElementById('submit-feedback').style.opacity = 1;
-        //setTimeout(() => {
-        //    document.getElementById('submit-feedback').style.opacity = 0;
-        //}, 5000)
-      })
+            if (!formData.get('gmt_adjacent')) throw new Error('Please provide GMT comparing adjacent timepoints')
+            if (!formData.get('gmt_t0')) throw new Error('Please provide sample GMT comparing to time zero')
+        }
+        }
+
+
+        async function doSubmit(formData) {
+            await validate(formData)
+            const json = Object.fromEntries(formData.entries())
+            const res = await fetch(window.location.href, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: formData, 
+            })
+            if (res.status === 406) {
+                let { error } = await res.json()
+                throw new Error(error.message)
+            } else {
+                const { _id } = await res.json()
+                window.location.href = `${_id}/`
+            }
+        }
+
+        function onSubmit(e) {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        doSubmit(formData).catch(function (e) {
+            console.error(e)
+            document.getElementById('submit-feedback').innerText = e.toString()
+            document.getElementById('submit-feedback').style.visibility = 'visible';
+            document.getElementById('submit-feedback').style.opacity = 1;
+            //setTimeout(() => {
+            //    document.getElementById('submit-feedback').style.opacity = 0;
+            //}, 5000)
+        })
     }
 
     function getNumRuns() {
