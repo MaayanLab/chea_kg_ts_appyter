@@ -2,7 +2,7 @@
 
 {% block head %}
 
-/*
+{#
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QSM2MDFW8W"></script>
 <script>
@@ -12,6 +12,7 @@
 
   gtag('config', 'G-QSM2MDFW8W');
 </script>
+#}
 
 <title class="h1">ChEA-KG-TS</title>
 <link rel="shortcut icon" href="{{ url_for('static', filename='chea_kg_ts.png') }}" />
@@ -21,7 +22,7 @@
 <meta name="keywords"
   content="time series, rna-seq, transcriptomics, transcription factors, gene regulatory network, bioinformatics">
 <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
-*/
+
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
 <style>
