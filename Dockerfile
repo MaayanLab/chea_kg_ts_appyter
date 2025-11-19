@@ -9,6 +9,7 @@ RUN set -x \
   && apt-get -y install \
     curl \
     fuse \
+    libfuse2 \
     git \
     nginx \
   && curl https://get.docker.com | sh \
@@ -59,9 +60,10 @@ ENV APPYTER_PREFIX="/"
 ENV APPYTER_HOST="0.0.0.0"
 ENV APPYTER_PORT="5000"
 ENV APPYTER_DEBUG="false"
-ENV APPYTER_IPYNB="chea_kg_ts_appyter.ipynb"
-ENV APPYTER_EXTRAS='["ipywidgets","toc", "toggle-code", "hide-code"]'
+ENV APPYTER_IPYNB="main.ipynb"
 ENV APPYTER_PROFILE="bootstrap"
+ENV APPYTER_EXTRAS '["toc", "toggle-code", "hide-code", "ipywidgets"]'
+
 
 ENV PATH="/app:$PATH"
 ENV PYTHONPATH "/app:$PYTHONPATH"
