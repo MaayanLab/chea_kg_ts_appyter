@@ -48,7 +48,7 @@
                 
                 <div id="RNA-seq" style="display: none;">
                     <div class="row mx-auto justify-content-center gap-5 mb-3">
-                        <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; background-color: rgb(204, 230, 237);" 
+                        <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; font-size: 20px; background-color: rgb(204, 230, 237); margin-top: 20px; padding: 20px" 
                                 onclick="loadTRAILExampleRNA()">Load example RNA-seq data (TRAIL Treatment of TNBC)</div>
                     </div>
                     
@@ -61,12 +61,19 @@
                             {{ _fields[5].render() }}
                         </div>
                     </div>
+                    <div id="rna-options" class="row justify-content-evenly" style="display: none;">
+                    <div class="col-4">
+                            {{ _fields[8].render() }}
+                        </div>
+                    <div class="col-4">
+                            {{ _fields[9].render() }}
+                    </div>
+                </div>
                 </div>
 
                 <div id="GMT" style="display: none;">
                     <div class="row mx-auto justify-content-center gap-5 mb-3">
-                        <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; background-color: rgb(204, 230, 237);" 
-                                onclick="loadTRAILExampleGMT()">Load example RNA-seq data (TRAIL Treatment of TNBC)
+                        <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; font-size: 20px; background-color: rgb(204, 230, 237); margin-top: 20px; padding: 20px"                                 onclick="loadTRAILExampleGMT()">Load example GMT files (TRAIL Treatment of TNBC)
                             </div>
                     </div>
                     
@@ -78,23 +85,25 @@
                             {{ _fields[7].render() }}
                         </div>
                     </div>
+                    <div id="gmt-options" class="row justify-content-evenly" style="display: none;">
+                    <div class="col-4">
+                            {{ _fields[9].render() }}
+                    </div>
+                </div>
                     
                 </div>
 
                 <div id="shared-area" class="row justify-content-evenly" style="display: none;">
-                    <div class="col-4">
+                    <div class="col-9">
                             {{ _fields[2].render() }}
                         </div>
                     <div class="col-9">
                             {{ _fields[3].render() }}
                     </div>
-                    <div class="col-4">
-                            {{ _fields[8].render() }}
-                        </div>
-                    <div class="col-9">
-                            {{ _fields[9].render() }}
-                    </div>
                 </div>
+                
+
+
                 
 
                 <div id="submit-area" class="row" style="display: none;">
@@ -123,16 +132,27 @@
         $('#RNA-seq').fadeIn(50)
         $('#shared-area').fadeIn()
         $('#submit-area').fadeIn(1000)
+        
+        $('#gmt-options').hide()
+        $('#gmt-options input, #gmt-options select').prop('disabled', true)  // disable to prevent submission
+        
+        $('#rna-options').show()
+        $('#rna-options input, #rna-options select').prop('disabled', false)
+        
         document.forms[0].elements['input_data_type'].value = 'raw RNA-seq data';
         $('#RNA-seq-button').addClass('selected')
         $('#GMT-button').removeClass('selected')
-
     })
 
     document.getElementById('GMT-button').addEventListener('click', () => {
         $('#ga').fadeOut(50)
         $('#RNA-seq').fadeOut(50)
         $('#GMT').fadeIn(50)
+        $('#rna-options').hide()
+        $('#rna-options input, #rna-options select').prop('disabled', true)  // disable to prevent submission
+        
+        $('#gmt-options').show()
+        $('#gmt-options input, #gmt-options select').prop('disabled', false)
         $('#shared-area').fadeIn()
         $('#submit-area').fadeIn(1000)
         document.forms[0].elements['input_data_type'].value = 'GMT';
