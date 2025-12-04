@@ -5,3 +5,6 @@ venv/
 __pycache__/
 motrpac_use_case/
 Mammalia/
+test/
+venv1/
+
