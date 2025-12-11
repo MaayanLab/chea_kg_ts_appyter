@@ -297,34 +297,28 @@
 {% endblock %}
 
 {% block body %}
-<div class="row justify-content-center mb-3"
-  style="position: relative; width: 105%; left: -3%; font-family: 'Open Sans'; background-color: rgb(187, 216, 250); border-bottom: 2px solid #006bdd; overflow-x: visible;">
-  <div class="container col-12">
-    <div class="mb-1 mt-2 mx-0 row align-items-center text-left flex-row" style="position: relative; margin-right: 20%">
-      <div class="col-2">
-        <a href="/">
-          <img src="{{ url_for('static', filename='chea_kg_ts.png') }}" style="width:175px" class="img-fluid float-right">
-        </a>
-      </div>
-      <div class="col-3 col-sm-4 text-left">
-        <h1 style="font-weight: 500"> ChEA-KG-TS </h1>
-        <p class="my-0">
-          The ChEA-KG Time Series Appyter visualizes the enriched transcription factor landscape from time series RNA-seq data, helping to inform hypothesis about the regulatory mechanisms governing biological processes.
-        </p>
-      </div>
+<div class="container-xl" style="font-family: 'Open Sans';background-color: rgb(187, 216, 250); border-bottom: 2px solid #006bdd; overflow-x: visible;">
+    <div class="row align-items-center mb-5 mt-2 justify-content-between">
+        <div class="col-8 d-flex align-items-center">
+            <img src="{{ url_for('static', filename='chea_kg_ts.png') }}"
+                 style="width:175px" class="img-fluid mr-3">
 
-      <div class="col-2">
-        <img src="{{ url_for('static', filename='ISMMS_black.png') }}" style="width:200px;" class="img-fluid">
-      </div>
-      <div class="col-2 col-sm-2">
-        <img src="{{ url_for('static', filename='maayan-black.png') }}" style="width: 150px;"
-          class="mt-4 ml-5 img-fluid">
-      </div>
-      <div class="col-1 text-center ml-5">
-        Executed Reports: <p style="font-weight: 1200; font-size: 1.5rem" id="numruns"></p>
-      </div>
+            <div>
+                <h1 style="font-weight: bolder; color: rgb(0, 0, 79);">ChEA-KG-TS</h1>
+                <p class="my-0">
+                    Upload raw RNA-seq data or gene sets from time-series experiments to 
+                    visualize the enriched transcription factor landscape and form hypotheses 
+                    about the regulatory mechanisms governing biological processes.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-auto text-right">
+            Executed Reports:
+            <p style="font-weight: 1200; font-size: 1.5rem" id="numruns"></p>
+        </div>
+
     </div>
-  </div>
 </div>
 
 {{ super() }}
