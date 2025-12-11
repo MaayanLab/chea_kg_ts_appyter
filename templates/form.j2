@@ -2,6 +2,7 @@
 
 {% block head %}
 {{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 {% endblock %}
 
 {% block style %}
@@ -24,11 +25,21 @@
             <div class="col-1 ml-5 text-center">
                 Executed Reports: <p style="font-weight: 1200; font-size: 1.5rem" id="numruns"></p>
             </div>
+            <div class="text-center mb-3">
+                <button id="toggle-help-btn" class="btn btn-info" type="button">Show Tutorial</button>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="text-center justify-content-center mx-auto">
+<div id="help-content" class="container col-10" style="display: none; padding: 20px;">
+    <div class="text-center mb-3">
+        <button id="back-to-form-btn" class="btn btn-primary" type="button">Back to Form</button>
+    </div>
+    <div id="markdown-container" style="background: white; padding: 30px; border-radius: 8px;"></div>
+</div>
+
+<div id="form-content" class="text-center justify-content-center mx-auto">
     <div class="row">
         <div class="col-12">
             <div id="selector" class="row mx-auto justify-content-center gap-5 mb-0">
@@ -125,6 +136,28 @@
 {{ super() }}
 
 <script>
+
+    async function loadHelp() {
+        try {
+            const response = await fetch("{{ url_for('static', filename='help.md') }}");
+            const markdown = await response.text();
+            document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
+        } catch (error) {
+            console.error('Error loading help page:', error);
+            document.getElementById('markdown-container').innerHTML = '<p>Error loading help page.</p>';
+        }
+    }
+
+    document.getElementById('toggle-help-btn').addEventListener('click', () => {
+        document.getElementById('form-content').style.display = 'none'
+        document.getElementById('help-content').style.display = 'block'
+        loadHelp()
+    });
+
+    document.getElementById('back-to-form-btn').addEventListener('click', () => {
+        document.getElementById('help-content').style.display = 'none'
+        document.getElementById('form-content').style.display = 'block'
+    })
 
     document.getElementById('RNA-seq-button').addEventListener('click', () => {
         $('#ga').fadeOut(50)
