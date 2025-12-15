@@ -1,5 +1,5 @@
 git+https://github.com/Maayanlab/maayanlab-bioinformatics.git@2b18be8542b8c0cf393707845041f8c380e54021
-appyter[production]@git+https://github.com/Maayanlab/appyter.git@497f5abe3b7446225aad04f2ff3323330a0b29cc
+appyter[production]@git+https://github.com/Maayanlab/appyter.git@83d0ca219304ffd30fde290c1f9e41fdbc9ea7b5
 anndata
 bokeh
 s3fs
@@ -20,3 +20,5 @@ pydeseq2
 chromedriver-binary
 playwright
 observable_jupyter
+werkzeug
+python-dotenv
