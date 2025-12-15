@@ -11,6 +11,16 @@
 
 {% block body %}
 <div class="page-wrapper">
+    <div id="help-overlay" class="hidden" style="position: fixed; top:0; left:0; width:100%; height:100%; 
+    background-color: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto;">
+    
+        <div style="background: white; margin: 5% auto; padding: 20px; border-radius: 8px; width: 80%; position: relative;">
+            <button onclick="toggleHelp()" 
+                    style="position: absolute; top: 10px; right: 10px; font-size: 16px;">✖ Close</button>
+            
+            <div id="markdown-container"></div>
+        </div>
+    </div>
     <div class="d-flex align-items-center justify-content-between mb-5 mt-2 px-0" style="width:100%; font-family: 'Open Sans';">
         <div style="flex: 1; text-align:left;">
             <img src="{{ url_for('static', filename='chea_kg_ts.png') }}" style="width:175px"
@@ -27,13 +37,6 @@
             <div> Executed<br>Reports: </div> 
             <p style="font-weight: 900; font-size: 1.5rem" id="numruns"></p>
         </div>
-    </div>
-
-    <div id="help-content" class="container col-10" style="display: none; padding: 20px;">
-        <div class="text-center mb-3">
-            <button id="back-to-form-btn" class="btn btn-primary" type="button" onclick="showForm()">Back to Form</button>
-        </div>
-        <div id="markdown-container" style="background: white; padding: 30px; border-radius: 8px;"></div>
     </div>
 
     <div id="form-content" class="text-center justify-content-center mx-auto">
@@ -135,29 +138,7 @@
 {% block script %}
 {{ super() }}
 
-<script>
-
-    async function loadHelp() {
-        try {
-            const response = await fetch("{{ url_for('static', filename='help.md') }}");
-            const markdown = await response.text();
-            document.getElementById('markdown-container').innerHTML = marked.parse(markdown);
-        } catch (error) {
-            console.error('Error loading help page:', error);
-            document.getElementById('markdown-container').innerHTML = '<p>Error loading help page.</p>';
-        }
-    }
-
-    document.getElementById('toggle-help-btn').addEventListener('click', () => {
-        document.getElementById('form-content').style.display = 'none'
-        document.getElementById('help-content').style.display = 'block'
-        loadHelp()
-    });
-
-    document.getElementById('back-to-form-btn').addEventListener('click', () => {
-        document.getElementById('help-content').style.display = 'none'
-        document.getElementById('form-content').style.display = 'block'
-    })
+<script> 
 
     document.getElementById('RNA-seq-button').addEventListener('click', () => {
         $('#ga').fadeOut(50)
@@ -232,6 +213,8 @@
             if (!formData.get('gmt_t0')) throw new Error('Please provide sample GMT comparing to time zero')
         }
         }
+
+        
 
 
         async function doSubmit(formData) {
