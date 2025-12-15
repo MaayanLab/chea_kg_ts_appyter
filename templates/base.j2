@@ -26,6 +26,26 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
 <style>
+    html, body {
+        min-height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    footer {
+        margin-top: auto;
+        flex-shrink: 0;
+    }
+    .page-wrapper {
+        max-width: 1500px;  
+        margin: 0 auto;   
+        width: 100%;       
+        padding: 0 20px;    
+        flex: 1 0 auto;
+    }
     #markdown-container table {
         border-collapse: collapse;
         width: 100%;
@@ -204,9 +224,7 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    /* Set the fixed height of the footer here */
     line-height: 60px;
-    /* Vertically center the text there */
   }
 
   #submit-feedback {
@@ -364,6 +382,35 @@
 
 <script>
 
+  let helpLoaded = false;
+
+  async function showHelp() {
+      const help = document.getElementById("help-content");
+      const form = document.getElementById("form-content");  // you must wrap the form in this id
+
+      form.style.display = "none";
+      help.style.display = "block";
+
+      if (!helpLoaded) {
+          try {
+              const response = await fetch("{{ url_for('static', filename='help.md') }}");
+              const markdown = await response.text();
+              document.getElementById("markdown-container").innerHTML = marked.parse(markdown);
+              helpLoaded = true;
+          } catch (err) {
+              document.getElementById("markdown-container").innerHTML = "<p>Error loading help page.</p>";
+          }
+      }
+  }
+
+  function showForm() {
+      const help = document.getElementById("help-content");
+      const form = document.getElementById("form-content");
+
+      help.style.display = "none";
+      form.style.display = "block";
+  }
+
   function waitForElementToDisplay(selector, callback, checkFrequencyInMs, timeoutInMs) {
     var startTimeInMs = Date.now();
     (function loopSearch() {
@@ -455,35 +502,53 @@
 <footer class="footer mt-5">
 
 <div class="d-flex flex-column"
-    style="position:absolute;width: 104%; left: -3%; background-color:#184f6b; padding: 0px; overflow-x: hidden;">
-    
-    <div class="text-center" style="color: white; padding: 15px 20px;">
-      This site does not use any cookies. Each automatically generated report is only accessible by the user via the unique URL associated with that report, unless it is shared.
-    </div>
+    style="width: 100%; background-color:#184f6b; padding: 0px; overflow-x: hidden;">
     <div class="row justify-content-around align-items-center text-center my-3 mx-auto">
-      <div class="col  ml-5 mx-5" style="font-size: medium;">
-        <a class="btn-link mr-2 text-nowrap" href="mailto:avi.maayan@mssm.edu" target="_blank" style="color: white !important;
+      <div class="col" style="font-size: medium; text-align: center; display: flex; justify-content: center; align-items: center; gap:10px">
+    
+        <button id="toggle-help-btn" class="btn btn-info" type="button" style="padding:8px; border-radius:10px; font-size:17px; width:120px; height:42px;">
+          Tutorial
+        </button>
+
+        <a class="btn-link text-nowrap" href="mailto:avi.maayan@mssm.edu" target="_blank" style="
+          display: inline-block;
+          color: white !important;
           text-decoration: none !important;
           border-style: solid;
           padding: 8px;
           border-color: white;
           border-radius: 10px;
-          border-width: 1px;">Contact Us</a>
+          border-width: 1px;
+          font-size:17px;
+          width:120px;
+          height:42px;
+          text-align: center;
+          line-height: 24px;
+          ">Contact Us</a>
 
         <a class="btn-link text-nowrap" href="https://github.com/MaayanLab/X2KTR" target="_blank"
-          rel="noopener noreferrer" style="color: white !important;
+          rel="noopener noreferrer" style="
+            display: inline-block;
+            color: white !important;
             text-decoration: none !important;
             border-style: solid;
             padding: 8px;
             border-color: white;
             border-radius: 10px;
-            border-width: 1px;">
+            border-width: 1px;
+            font-size:17px;
+            width:120px;
+            height:42px;
+            text-align: center;
+            line-height: 24px;
+            ">
             Source Code
         </a>
+    
       </div>
       <div class="col mx-5">
         <a href="https://labs.icahn.mssm.edu/" target="_blank" rel="noopener noreferrer">
-          <img src="{{ url_for('static', filename='ismms_white.png')}}" style="width: 8rem;" alt='Ma&apos;ayan Lab' />
+          <img src="{{ url_for('static', filename='ismms_white.png')}}" style="width: 10rem;" alt='Ma&apos;ayan Lab' />
         </a>
       </div>
 
@@ -500,7 +565,10 @@
         </a>
       </div> 
     </div>
-</div>
+    <div class="text-center" style="color: white; font-size: 10px">
+      This site does not use any cookies. Each automatically generated report is accessible via a persistent unique URL.
+    </div>
+</div>  
 </footer>
 
 {% endblock %}
