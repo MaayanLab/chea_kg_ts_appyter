@@ -3,7 +3,6 @@
 ## Abstract
 Transcription factors (TFs) are key regulators of gene expression. Understanding the complex ways in which they interact is critical to unravel how biological pathways such as disease, aging, and development are controlled. TF modules can change over time, for example in response to perturbations including exercise or chemical treatments. Time series experiments measure these temporal changes in cellular state by performing molecular assays at multiple time points. RNA sequencing (RNA-seq) data from these experiments can be combined with differential gene expression to identify the genes that are significantly up- or down-regulated in response to the perturbation at each time point. To identify enriched TF modules for an input gene set, we previously developed ChEA-KG. ChEA-KG is a TF enrichment analysis tool that serves a background human gene regulatory network of 1,559 human TF nodes connected by 131,181 signed and directed edges. Here, we adapt ChEA-KG to create ChEA-KG Time Series (ChEA-KG-TS), an automated workflow to identify TF regulatory modules from time series RNA-seq data. The workflow automatically calculates  up- and down-regulated gene sets between time points using Characteristic Direction or DESeq2. The gene sets are submitted to ChEA3, a TF enrichment analysis tool, to predict the likely TF regulators for each comparison. The enriched TFs are queried in ChEA-KG to identify regulatory interactions between each comparison. The results are summarized in an automatically generated report including interactive visualizations of the enrichment analysis results and regulatory subnetworks as well as UMAP projections of the enriched TFs at each time point.
 
-
 ## Input Types
 ChEA-KG-TS offers two input options. Example files are available for both input types by clicking on the download button next to "Load Example" (Fig 1, 2).
 
@@ -134,13 +133,13 @@ The report includes the following components:
 For RNA-seq data matrix inputs, differential expression is computed using the algorithm selected by the user - either DESeq2, Characteristic Direction, or both. For each method and input dataset, two comparisons are made. The first is between adjacent time point comparisons (Fig 4A; eg hour 1 vs hour 2). The second is between each time point and the baseline, which is assumed to be the first timepoint in the metadata list (Fig 4A). 
 
 <div style="display: flex; gap: 40px; justify-content: center; max-width: 1200px; margin: 0 auto;">
-<img src="static/fig3.png" alt="The RNA-seq upload page" width=600>
+<img src="static/fig0.png" alt="The RNA-seq upload page" width=600>
 </div>
 
-**Figure 4A.** Example differential expression results when "DESeq2" is selected as the method. 
+**Figure 4A.** Example summary of differential expression results when "DESeq2" is selected as the method. 
 
 #### 1. Enriched Transcription Factor Regulatory Subnetwork 
-The JSON file created in step 3 is used to visualize the regulatory network using ball-and-stick diagrams. Blue and red nodes correspond to TFs enriched for upregulated and downregulated gene sets at the given time point, respectively. Activation (green) or inhibition (red) arrows are drawn between TFs at adjacent time points (as determined by ChEA-KG), therefore forming a regulatory subnetwork of all the enriched TFs.
+The JSON file created in step 3 is used to visualize the regulatory network using ball-and-stick diagrams. Blue and red nodes correspond to TFs enriched for upregulated and downregulated gene sets at the given time point, respectively. Activation (green) or inhibition (red) arrows are drawn between TFs at adjacent time points (as determined by ChEA-KG), therefore forming a regulatory subnetwork of all the enriched TFs (Fig 4B).
  
 <div style="display: flex; gap: 40px; justify-content: center; max-width: 1200px; margin: 0 auto;">
 <img src="static/fig4a.png" alt="The RNA-seq upload page" width=600>
@@ -149,7 +148,7 @@ The JSON file created in step 3 is used to visualize the regulatory network usin
 **Figure 4B.** Example of a transcription factor regulatory subnetwork output. The static image can be downloaded as a PNG or SVG by clicking at the links below the figure.
 
 #### 2. Bar graph representation of enriched TF ranks
-The bar graphs below depict the ranks of the top enriched TFs across the TF-target gene set libraries in ChEA3 (Keenan et al., 2019). Bar graphs are shown for the enriched TFs for the "up" and "down" gene sets at each time point.  
+The bar graphs below depict the ranks of the top enriched TFs across the TF-target gene set libraries in ChEA3 (Keenan et al., 2019). Bar graphs are shown for the enriched TFs for the "up" and "down" gene sets at each time point (Fig 4C).  
 
 Here, a TF's rank within a given library refers to how well the TF's target genes within that library overlap with the input gene set (e.g. up genes at the "hour 3 vs hour 1" comparison) compared to other TFs within that library. The top enriched TFs are computed by finding the TFs with the lowest average rank across all six ChEA3 libraries (referred to as the MeanRank method).  
 
@@ -160,7 +159,7 @@ Here, a TF's rank within a given library refers to how well the TF's target gene
 **Figure 4C.** Example of the enriched TF rank bar graph output. The static image can be downloaded as a PNG or SVG by clicking at the links below the figure. 
 
 #### 3. Interactive UMAP visualization of the enriched TFs
-The enriched transcription factors from each time point are colored on a UMAP plot of 700 TFs identified by ChEA-KG to be "source TFs" (i.e. they exert regulatory effects on other TFs). The UMAP algorithm was performed using the TF-IDF scores of the TFs' target genes, meaning that TFs are placed in the same cluster if they generally regulate similar genes.
+The enriched transcription factors from each time point are colored on a UMAP plot of 700 TFs identified by ChEA-KG to be "source TFs" (i.e. they exert regulatory effects on other TFs). The UMAP algorithm was performed using the TF-IDF scores of the TFs' target genes, meaning that TFs are placed in the same cluster if they generally regulate similar genes (Fig 4D).
 
 <div style="display: flex; gap: 40px; justify-content: center; max-width: 1200px; margin: 0 auto;">
 <img src="static/fig4c.png" alt="The RNA-seq upload page" width=600>
