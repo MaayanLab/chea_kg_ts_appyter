@@ -45,11 +45,6 @@ RUN set -x \
   && pip3 install --no-cache-dir -r /app/requirements.txt \
   && rm /app/requirements.txt
 
-ARG appyter_version=appyter[production]@git+https://github.com/Maayanlab/appyter@v0.21.5
-RUN set -x \
-  && echo "Installing appyter..." \
-  && pip3 install --no-cache-dir --upgrade ${appyter_version}
-
 USER app
 WORKDIR /app
 EXPOSE 5000
