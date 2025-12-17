@@ -9,16 +9,68 @@ services:
     environment:
     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
     - APPYTER_PROXY=true
-    - APPYTER_FUSE=false
     - APPYTER_PROFILE=bootstrap
     - APPYTER_EXTRAS=${APPYTER_EXTRAS}
     - APPYTER_DATA_DIR=s3://${MINIO_ACCESS_KEY}:${MINIO_SECRET_KEY}@s3:9000/${MINIO_BUCKET}
-    - APPYTER_EXECUTOR=dispatch::http://appyter-orchestrator:5000?params.executor=docker::maayanlab/x2ktr:latest
+    - APPYTER_EXECUTOR=kube::avdusen25/chea-kg-timeseries:0.1.8#?namespace=avdusen25&resources.requests.memory=8Gi
     ports:
     - 5050:5000
     x-kubernetes:
       annotations:
         maayanlab.cloud/ingress: https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
+
 x-kubernetes:
   name: chea-kg-timeseries
   namespace: avdusen25
+  apply: |
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: chea-kg-timeseries-sa
+      namespace: avdusen25
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      name: chea-kg-timeseries-role
+      namespace: avdusen25
+    rules:
+    - apiGroups:
+      - ""
+      resources:
+      - pods
+      verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+    - apiGroups:
+      - batch
+      - extensions
+      resources:
+      - jobs
+      verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: chea-kg-timeseries-role-binding
+      namespace: avdusen25
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: Role
+      name: chea-kg-timeseries-role
+    subjects:
+    - kind: ServiceAccount
+      name: chea-kg-timeseries-sa
+      namespace: avdusen25
