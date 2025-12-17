@@ -1,4 +1,4 @@
-git+https://github.com/Maayanlab/maayanlab-bioinformatics.git@2b18be8542b8c0cf393707845041f8c380e54021
+git+https://github.com/Maayanlab/maayanlab-bioinformatics.git@54a6f90e40b51e7c0bd8006033dcb1dff5b34e1b
 appyter[production]@git+https://github.com/Maayanlab/appyter.git@83d0ca219304ffd30fde290c1f9e41fdbc9ea7b5
 anndata
 bokeh
