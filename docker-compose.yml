@@ -16,6 +16,7 @@ services:
     x-kubernetes:
       annotations:
         maayanlab.cloud/ingress: https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
+      serviceAccountName: chea-kg-timeseries-sa
 
 x-kubernetes:
   name: chea-kg-timeseries
