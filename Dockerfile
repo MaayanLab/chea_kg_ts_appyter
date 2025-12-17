@@ -12,6 +12,8 @@ RUN set -x \
     libfuse2 \
     git \
     nginx \
+    chromium \
+    chromium-driver \
   && curl https://get.docker.com | sh \
   && rm -rf /var/lib/apt/lists/* \
   && pip3 install --no-cache-dir --upgrade pip

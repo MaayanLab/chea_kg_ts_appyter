@@ -5,7 +5,6 @@ bokeh
 s3fs
 fsspec
 selenium>=4.6
-webdriver-manager
 flask
 gunicorn
 numpy
