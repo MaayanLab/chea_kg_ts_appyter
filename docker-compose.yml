@@ -2,7 +2,7 @@ services:
   chea-kg-timeseries:
     build: .
     # image: avdusen25/chea-kg-timeseries:0.1.8
-    image: maayanlab/chea-kg-timeseries:0.3.0
+    image: maayanlab/chea-kg-timeseries:0.3.1
     restart: unless-stopped
     pull_policy: missing
     platform: linux/amd64
@@ -10,7 +10,7 @@ services:
     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
     - APPYTER_PROXY=true
     - APPYTER_DATA_DIR
-    - APPYTER_EXECUTOR=kube::maayanlab/chea-kg-timeseries:0.3.0#?namespace=${KUBE_NAMESPACE}&resources.requests.memory=8Gi
+    - APPYTER_EXECUTOR=kube::maayanlab/chea-kg-timeseries:0.3.1#?namespace=${KUBE_NAMESPACE}&resources.requests.memory=8Gi
     ports:
     - 5050:5000
     x-kubernetes:

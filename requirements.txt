@@ -3,7 +3,7 @@ appyter[production]@git+https://github.com/Maayanlab/appyter.git@140b44d16ceff37
 anndata
 bokeh
 s3fs
-fsspec
+fsspec==2022.1.0
 selenium
 flask
 gunicorn
