@@ -1,7 +1,8 @@
 {% extends "bootstrap/base.j2" %}
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 
 {% block head %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <title class="h1">ChEA-KG-TS</title>
 <link rel="shortcut icon" href="{{ url_for('static', filename='chea_kg_ts.png') }}" />
@@ -393,9 +394,6 @@
 {{ super() }}
 
 <script>
-console.log('Script block is running');
-
-
   let helpLoaded = false;
 
   async function toggleHelp() {
