@@ -1,24 +1,75 @@
 services:
   chea-kg-timeseries:
     build: .
-    image: avdusen25/chea-kg-timeseries:0.1.8
-    # image: maayanlab/chea-kg-timeseries:0.2.12
+    # image: avdusen25/chea-kg-timeseries:0.1.8
+    image: maayanlab/chea-kg-timeseries:0.3.3
     restart: unless-stopped
     pull_policy: missing
     platform: linux/amd64
     environment:
     - APPYTER_PUBLIC_URL=https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
     - APPYTER_PROXY=true
-    - APPYTER_FUSE=false
-    - APPYTER_PROFILE=bootstrap
-    - APPYTER_EXTRAS=${APPYTER_EXTRAS}
-    - APPYTER_DATA_DIR=s3://${MINIO_ACCESS_KEY}:${MINIO_SECRET_KEY}@s3:9000/${MINIO_BUCKET}
-    - APPYTER_EXECUTOR=dispatch::http://appyter-orchestrator:5000?params.executor=docker::maayanlab/x2ktr:latest
+    - APPYTER_DATA_DIR
+    - APPYTER_EXECUTOR=kube::maayanlab/chea-kg-timeseries:0.3.3#?namespace=${KUBE_NAMESPACE}&resources.requests.memory=8Gi
     ports:
     - 5050:5000
     x-kubernetes:
       annotations:
         maayanlab.cloud/ingress: https://chea-kg-timeseries.k8s.dev.maayanlab.cloud
+      serviceAccountName: chea-kg-timeseries-sa
+
 x-kubernetes:
   name: chea-kg-timeseries
-  namespace: avdusen25
+  namespace: ${KUBE_NAMESPACE}
+  apply: |
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: chea-kg-timeseries-sa
+      namespace: ${KUBE_NAMESPACE}
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      name: chea-kg-timeseries-role
+      namespace: ${KUBE_NAMESPACE}
+    rules:
+    - apiGroups:
+      - ""
+      resources:
+      - pods
+      verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+    - apiGroups:
+      - batch
+      - extensions
+      resources:
+      - jobs
+      verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: chea-kg-timeseries-role-binding
+      namespace: ${KUBE_NAMESPACE}
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: Role
+      name: chea-kg-timeseries-role
+    subjects:
+    - kind: ServiceAccount
+      name: chea-kg-timeseries-sa
+      namespace: ${KUBE_NAMESPACE}
