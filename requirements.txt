@@ -1,9 +1,9 @@
 git+https://github.com/Maayanlab/maayanlab-bioinformatics.git@2b18be8542b8c0cf393707845041f8c380e54021
-appyter[production]@git+https://github.com/Maayanlab/appyter.git@83d0ca219304ffd30fde290c1f9e41fdbc9ea7b5
+appyter[production]@git+https://github.com/Maayanlab/appyter.git@140b44d16ceff3711225d51fbd3ee8a26e86fb85
 anndata
 bokeh
-s3fs
-fsspec
+s3fs==2022.1.0
+fsspec==2022.1.0
 selenium
 flask
 gunicorn
