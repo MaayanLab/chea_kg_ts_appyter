@@ -1,5 +1,5 @@
-git+https://github.com/Maayanlab/maayanlab-bioinformatics.git@2b18be8542b8c0cf393707845041f8c380e54021
-appyter[production]@git+https://github.com/Maayanlab/appyter.git@140b44d16ceff3711225d51fbd3ee8a26e86fb85
+git+https://github.com/Maayanlab/maayanlab-bioinformatics.git@54a6f90e40b51e7c0bd8006033dcb1dff5b34e1b
+appyter[production]@git+https://github.com/Maayanlab/appyter.git@6d6b887c80dd67f6ba371a51ff7f360bfe95ac59
 anndata
 bokeh
 s3fs==2022.1.0
