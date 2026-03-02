@@ -7,6 +7,12 @@
 
 {% block style %}
 {{ super() }}
+<style>
+    /* this hides all "load example" buttons except the first */
+  .d-table-cell .text-sm:not(:first-child) {
+        display: none !important;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -89,7 +95,11 @@
                                 Load example GMT files <br>(TRAIL Treatment of TNBC)
                             </div>
                         </div>
-                        
+                        <style>
+                        .d-table:has(span:contains("Load example")) {
+                            display: none !important;
+                        }
+                        </style>
                         <div class="row justify-content-evenly">
                             <div class="col-6">
                                 {{ _fields[6].render() }}
@@ -114,10 +124,6 @@
                                 {{ _fields[3].render() }}
                         </div>
                     </div>
-                    
-
-
-                    
 
                     <div id="submit-area" class="row" style="display: none;">
                         <div class="col-sm-12">
@@ -128,10 +134,93 @@
                         </div>
                     </div>
                 </form>
+                <div class="row mt-3 mb-2 justify-content-center" style="font-style: italic; font-weight: 200;">
+                Load examples for any of the 28 tissue types in the GTEx Aging Signatures Dataset:
+            </div>
+            <div class="row tissue-selector" style="margin-right: 20%; margin-left: 20%;">
+                <a class="col tissue-example" onclick="loadAllExamplesRun('AdiposeTissue')">
+                    AdiposeTissue
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Bladder')">
+                    Bladder
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Blood')">
+                    Blood
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('BloodVessel')">
+                    BloodVessel
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Brain')">
+                    Brain
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Breast')">
+                    Breast
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Colon')">
+                    Colon
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Esophagus')">
+                    Esophagus
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Heart')">
+                    Heart
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Kidney')">
+                    Kidney
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Liver')">
+                    Liver
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Lung')">
+                    Lung
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Muscle')">
+                    Muscle
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Nerve')">
+                    Nerve
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Ovary')">
+                    Ovary
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Pancreas')">
+                    Pancreas
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Pituitary')">
+                    Pituitary
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Prostate')">
+                    Prostate
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('SalivaryGland')">
+                    SalivaryGland
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Skin')">
+                    Skin
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('SmallIntestine')">
+                    SmallIntestine
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Spleen')">
+                    Spleen
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Stomach')">
+                    Stomach
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Testis')">
+                    Testis
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Uterus')">
+                    Uterus
+                </a>
+                <a class="col tissue-example" onclick="loadAllExamplesRun('Vagina')">
+                    Vagina
+                </a>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 
@@ -190,6 +279,15 @@
         }
 
         
+    }
+
+    function loadAllExamplesRun(tissueType) {
+        
+        const textbtn = document.getElementsByClassName('text-btn ' + tissueType);
+        for (let i = 0; i < textbtn.length; i++) {
+            textbtn[i].click();
+        }
+
     }
 
     async function validate(formData) {
