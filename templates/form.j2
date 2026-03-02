@@ -282,11 +282,15 @@
     }
 
     function loadAllExamplesRun(tissueType) {
-        
-        const textbtn = document.getElementsByClassName('text-btn ' + tissueType);
-        for (let i = 0; i < textbtn.length; i++) {
-            textbtn[i].click();
-        }
+        const gmtbutton = document.getElementById('GMT-button')
+        console.log('looking for button!')
+        gmtbutton.click()
+        setTimeout(() => {
+            const textbtn = document.getElementsByClassName('text-btn ' + tissueType);
+            for (let i = 0; i < textbtn.length; i++) {
+                textbtn[i].click();
+            }
+        }, 200)
 
     }
 
