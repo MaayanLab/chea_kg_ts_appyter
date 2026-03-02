@@ -58,7 +58,7 @@
                     </div>
 
                 <div class="container col-10" style="font-size: 14px !important;"></div>
-                <form method="POST" enctype="multipart/form-data" action="" onsubmit="return onSubmit(event)">
+                <form method="POST" enctype="multipart/form-data" id='cheakgtsform' action="" onsubmit="return onSubmit(event)">
                     <div hidden>
                         {{ _fields[1].render() }}
                     </div>
@@ -135,85 +135,85 @@
                     </div>
                 </form>
                 <div class="row mt-3 mb-2 justify-content-center" style="font-style: italic; font-weight: 200;">
-                Load examples for any of the 28 tissue types in the GTEx Aging Signatures Dataset:
+                Explore the evolution of transcription factor modules over time in 28 human aging tissues computed from the GTEx transcriptomics dataset:
             </div>
-            <div class="row tissue-selector" style="margin-right: 20%; margin-left: 20%;">
-                <a class="col tissue-example" onclick="loadAllExamplesRun('AdiposeTissue')">
-                    AdiposeTissue
+            <div class="tissue-selector" style="margin-right: 12%; margin-left: 12%;">
+                <a class="tissue-example" onclick="loadAllExamplesRun('AdiposeTissue')">
+                    Adipose Tissue
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Bladder')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Bladder')">
                     Bladder
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Blood')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Blood')">
                     Blood
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('BloodVessel')">
-                    BloodVessel
+                <a class="tissue-example" onclick="loadAllExamplesRun('BloodVessel')">
+                    Blood Vessel
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Brain')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Brain')">
                     Brain
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Breast')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Breast')">
                     Breast
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Colon')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Colon')">
                     Colon
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Esophagus')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Esophagus')">
                     Esophagus
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Heart')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Heart')">
                     Heart
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Kidney')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Kidney')">
                     Kidney
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Liver')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Liver')">
                     Liver
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Lung')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Lung')">
                     Lung
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Muscle')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Muscle')">
                     Muscle
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Nerve')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Nerve')">
                     Nerve
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Ovary')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Ovary')">
                     Ovary
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Pancreas')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Pancreas')">
                     Pancreas
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Pituitary')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Pituitary')">
                     Pituitary
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Prostate')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Prostate')">
                     Prostate
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('SalivaryGland')">
-                    SalivaryGland
+                <a class="tissue-example" onclick="loadAllExamplesRun('SalivaryGland')">
+                    Salivary Gland
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Skin')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Skin')">
                     Skin
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('SmallIntestine')">
-                    SmallIntestine
+                <a class="tissue-example" onclick="loadAllExamplesRun('SmallIntestine')">
+                    Small Intestine
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Spleen')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Spleen')">
                     Spleen
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Stomach')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Stomach')">
                     Stomach
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Testis')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Testis')">
                     Testis
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Uterus')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Uterus')">
                     Uterus
                 </a>
-                <a class="col tissue-example" onclick="loadAllExamplesRun('Vagina')">
+                <a class="tissue-example" onclick="loadAllExamplesRun('Vagina')">
                     Vagina
                 </a>
             </div>
@@ -277,20 +277,20 @@
         for (let i = 0; i < textbtn.length; i++) {
             textbtn[i].click();
         }
-
-        
     }
 
     function loadAllExamplesRun(tissueType) {
-        const gmtbutton = document.getElementById('GMT-button')
-        console.log('looking for button!')
-        gmtbutton.click()
+        // silence rna-seq input to prevent duplicate parameters being submitted and set gmt as input
+        document.forms[0].elements['input_data_type'].value = 'GMT';
+        $('#rna-options input, #rna-options select').prop('disabled', true)
+
+        const textbtn = document.getElementsByClassName('text-btn ' + tissueType);
+        for (let i = 0; i < textbtn.length; i++) {
+            textbtn[i].click();
+        }
         setTimeout(() => {
-            const textbtn = document.getElementsByClassName('text-btn ' + tissueType);
-            for (let i = 0; i < textbtn.length; i++) {
-                textbtn[i].click();
-            }
-        }, 200)
+            document.getElementById('cheakgtsform').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        }, 500);
 
     }
 
@@ -309,31 +309,28 @@
             if (!formData.get('count_matrix')) throw new Error('Please provide RNA-seq gene count matrix')
             if (!formData.get('metadata')) throw new Error('Please provide sample metadata')
         }
+    }
+
+    async function doSubmit(formData) {
+        await validate(formData)
+        const json = Object.fromEntries(formData.entries())
+        const res = await fetch(window.location.href, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: formData, 
+        })
+        if (res.status === 406) {
+            let { error } = await res.json()
+            throw new Error(error.message)
+        } else {
+            const { _id } = await res.json()
+            window.location.href = `${_id}/`
         }
+    }
 
-        
-
-
-        async function doSubmit(formData) {
-            await validate(formData)
-            const json = Object.fromEntries(formData.entries())
-            const res = await fetch(window.location.href, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                },
-                body: formData, 
-            })
-            if (res.status === 406) {
-                let { error } = await res.json()
-                throw new Error(error.message)
-            } else {
-                const { _id } = await res.json()
-                window.location.href = `${_id}/`
-            }
-        }
-
-        function onSubmit(e) {
+    function onSubmit(e) {
         e.preventDefault()
         const formData = new FormData(e.target)
         doSubmit(formData).catch(function (e) {
