@@ -8,3 +8,5 @@ Mammalia/
 test/
 venv1/
 test.*
+*.gmt
+*.csv
