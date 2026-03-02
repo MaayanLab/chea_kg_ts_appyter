@@ -207,11 +207,6 @@
             if (!formData.get('count_matrix')) throw new Error('Please provide RNA-seq gene count matrix')
             if (!formData.get('metadata')) throw new Error('Please provide sample metadata')
         }
-        if (formData.get('input_data_type') == 'GMT') {
-
-            if (!formData.get('gmt_adjacent')) throw new Error('Please provide GMT comparing adjacent timepoints')
-            if (!formData.get('gmt_t0')) throw new Error('Please provide sample GMT comparing to time zero')
-        }
         }
 
         
