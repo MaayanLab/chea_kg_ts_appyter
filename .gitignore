@@ -3,7 +3,6 @@
 data/
 venv/
 __pycache__/
-motrpac_use_case/
 Mammalia/
 test/
 venv1/
@@ -11,3 +10,7 @@ test.*
 *.gmt
 *.csv
 figures/
+
+# motrpac use case
+out/
+raw_counts/
