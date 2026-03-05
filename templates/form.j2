@@ -275,6 +275,7 @@
             textbtn[i].click();
         }
         document.forms[0].elements['dge_method'].value = 'DESeq2'
+        document.forms[0].elements['study_title'].value = `TRAIL Treatment of TNBC`;
         
     }
 
@@ -288,6 +289,7 @@
     function loadAllExamplesRun(tissueType) {
         // silence rna-seq input to prevent duplicate parameters being submitted and set gmt as input
         document.forms[0].elements['input_data_type'].value = 'GMT';
+        document.forms[0].elements['study_title'].value = `GTEx Aging Signatures ${tissueType}`;
         $('#rna-options input, #rna-options select').prop('disabled', true)
 
         const textbtn = document.getElementsByClassName('text-btn ' + tissueType);
