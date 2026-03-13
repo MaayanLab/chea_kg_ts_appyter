@@ -66,7 +66,7 @@
                     <div id="RNA-seq" style="display: none;">
                         <div class="row mx-auto justify-content-center gap-5 mb-3">
                             <div class="btn rounded col-3 justify-content-center" style="border: solid 2px rgb(103, 103, 103); font-weight: 500; font-size: 20px; background-color: rgb(204, 230, 237); margin-top: 20px; padding: 20px" 
-                                    onclick="loadTRAILExampleRNA()">Load example RNA-seq data<br> (TRAIL Treatment of TNBC)</div>
+                                    onclick="loadLiverExampleRNA()">Load example RNA-seq data<br> (MoTrPAC Liver)</div>
                         </div>
                         
                         
@@ -269,13 +269,13 @@
         $('#GMT-button').addClass('selected')
     })
 
-    function loadTRAILExampleRNA() {
-        const textbtn = document.getElementsByClassName('text-btn ' + 'GSE271120');
+    function loadLiverExampleRNA() {
+        const textbtn = document.getElementsByClassName('text-btn ' + 'motrpac');
         for (let i = 0; i < textbtn.length; i++) {
             textbtn[i].click();
         }
         document.forms[0].elements['dge_method'].value = 'DESeq2'
-        document.forms[0].elements['study_title'].value = `TRAIL Treatment of TNBC`;
+        document.forms[0].elements['study_title'].value = `MoTrPAC Exercise Endurance Study: Liver`;
         
     }
 
