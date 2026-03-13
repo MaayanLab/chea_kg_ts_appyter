@@ -10,7 +10,7 @@ services:
     - APPYTER_PUBLIC_URL
     - APPYTER_PROXY=true
     - APPYTER_DATA_DIR
-    - APPYTER_EXECUTOR=kube::maayanlab/chea-kg-timeseries:0.4.0#?namespace=${KUBE_NAMESPACE}&resources.requests.memory=8Gi
+    - APPYTER_EXECUTOR=kube::abird128/chea-kg-timeseries:0.4.0#?namespace=${KUBE_NAMESPACE}&resources.requests.memory=8Gi
     ports:
     - 5050:5000
     x-kubernetes:
