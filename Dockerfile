@@ -48,8 +48,6 @@ RUN set -x \
   && rm /app/requirements.txt \
   && playwright install chromium
 
-RUN apt-get update && apt-get install -y chromium chromium-driver
-
 USER app
 WORKDIR /app
 EXPOSE 5000
